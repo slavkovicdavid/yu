@@ -43,7 +43,8 @@
 			}
 		},
 		'HTTP':{},
-		'META':{}
+		'META':{},
+		'BOARD':{}
 	};
 
 	yu.init = function init()
@@ -52,7 +53,7 @@
 		// get META.reload
 		yu.DOM.require('META_reload.js', function(MrDone)
 		{
-			if(mrDone)
+			if(MrDone)
 			{
 
 				// get main, run main
