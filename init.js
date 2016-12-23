@@ -4,6 +4,7 @@
 	yu = // essential functionality
 	{
 		'junk':{
+			'confBoard':'http://yuchan.org/yu/',
 			'confVersionStatus':'dev',
 			'confServerLocation':'http://localhost:1389/',
 			'confModuleClassName':'yuExtModule'
@@ -17,17 +18,44 @@
 			)
 			{
 
-				this.moduleName = filename.replace(/\.js/, '');
+				filename = typeof filename == 'string'
+				?
+					filename.split(',')
+				: filename.trim();
 
-				this.n = _d.createElement('script');
-				this.n.src = yu.junk.confServerLocation + (filename=='main.js' ? '':'modules/') + filename;
-				this.n.className += ' yuExtModule';
+				this.insert = function insert(module)
+				{
 
-					_d.body.appendChild(this.n);
+					if(!window[module+'Loaded'])
+					{
+						yu.junk.n = _d.createElement('script');
+						yu.junk.n.src = yu.junk.confServerLocation + (module=='main' ? '':'modules/') + module + '.js';
+						yu.junk.n.className += ' yuExtModule';
 
+							_d.body.appendChild(yu.junk.n);
+						
+							// clean up
+							delete
+								yu.junk.n;
+					}
+					else
+					{
+						console.log('module ' + module + ' has already been loaded');
+					}
+				};
+
+
+				filename.forEach(function(module)
+				{
+					module=module.trim();
+					yu.DOM.moduleName = module.replace(/\.js/, '');
+					yu.DOM.insert(yu.DOM.moduleName);
+				});
+
+				// run callback if last item is loaded
 				var YLMwait = setInterval(function()
 				{
-					typeof(eval(yu.DOM.moduleName+'Loaded')) !== 'undefined'
+					typeof window[yu.DOM.moduleName+'Loaded'] !== 'undefined'
 					?
 					(
 						callback(true),
@@ -35,11 +63,7 @@
 					)
 					:callback(false);
 				}, 100);
-				
-					// clean up
-					delete
-						this.n,
-						this.moduleName;
+
 			}
 		},
 		'HTTP':{},
@@ -55,7 +79,6 @@
 		{
 			if(MrDone)
 			{
-
 				// get main, run main
 				yu.DOM.require('main.js', function(mainLoaded)
 				{

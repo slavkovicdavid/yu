@@ -1,7 +1,6 @@
 yu.main = function()
 {
 
-	// require parts of the framework
 	// do work
 
 		/*
@@ -13,7 +12,14 @@ yu.main = function()
 			> display it in some UI
 		*/
 
-		console.log(typeof(yu.HTTP.request));
+		yu.DOM.require('BOARD_catalog.js', function(loaded)
+		{
+			if(loaded)
+			{
+				yu.BOARD.catalog(); // will return a catalog in JSON format
+			}
+		});
+		console.log('main loaded');
 
 }
 
