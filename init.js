@@ -20,7 +20,7 @@
 				this.moduleName = filename.replace(/\.js/, '');
 
 				this.n = _d.createElement('script');
-				this.n.src = yu.junk.confServerLocation + filename;
+				this.n.src = yu.junk.confServerLocation + (filename=='main.js' ? '':'modules/') + filename;
 				this.n.className += ' yuExtModule';
 
 					_d.body.appendChild(this.n);
@@ -41,18 +41,29 @@
 						this.n,
 						this.moduleName;
 			}
-		}
+		},
+		'HTTP':{},
+		'META':{}
 	};
 
 	yu.init = function init()
 	{
 
-		// get main, run main
-		yu.DOM.require('main.js', function(loaded)
+		// get META.reload
+		yu.DOM.require('META_reload.js', function(MrDone)
 		{
-			if(loaded)
+			if(mrDone)
 			{
-				yu.main();
+
+				// get main, run main
+				yu.DOM.require('main.js', function(mainLoaded)
+				{
+					if(mainLoaded)
+					{
+						yu.main();
+					}
+				});
+
 			}
 		});
 		

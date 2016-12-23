@@ -1,5 +1,3 @@
-yu.HTTP={}; yu.META={}; // define HTTP, META property of yu
-
 yu.HTTP.request = function request
 	(
 		target,
@@ -58,27 +56,4 @@ yu.HTTP.request = function request
 			this.req = null;
 	};
 
-yu.DOM.find=function find
-	(
-		what,
-		from
-	)
-	{
-		return from.querySelectorAll(what);
-	};
-
-yu.META.reload=function reload()
-	{
-		yu.junk.moduleElements = yu.DOM.find('.'+yu.junk.confModuleClassName, _d);
-		for(var i=0; i<yu.junk.moduleElements.length; i++)
-		{
-			yu.junk.moduleElements[i].parentNode.removeChild(yu.junk.moduleElements[i]);
-		}
-
-			// clean up
-			yu.junk.moduleElements = null;
-
-		yu.init();
-	};
-
-var libLoaded = true; // tell framework code is available
+var HTTP_requestLoaded = true;

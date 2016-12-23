@@ -2,13 +2,8 @@ yu.main = function()
 {
 
 	// require parts of the framework
-	yu.DOM.require('lib.js', function(loaded)
-	{
-		if(loaded)
-		{
-			console.log('lib loaded');
-		}
-	});
+	// do work
+	console.log('now what');
 
 }
 
