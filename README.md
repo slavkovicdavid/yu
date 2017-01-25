@@ -6,4 +6,6 @@
 
 #### The what
 
-#### S M E Ć E
+#### Kill Ustaše
+
+#### Have sex with Dažbog
